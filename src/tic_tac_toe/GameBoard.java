@@ -1,10 +1,10 @@
 package tic_tac_toe;
 
 public class GameBoard {
+
     public void StartGame(){
         drawBoard();
     }
-
     public GameBoard() {
         int[][] board = new int[3][3];
     }
