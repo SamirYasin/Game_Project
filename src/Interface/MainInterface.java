@@ -15,15 +15,14 @@ public class MainInterface {
     }
 
     private void takeUserToGame(String usersChoice) {
-        String choice = usersChoice.toUpperCase();
-
-        switch (choice) {
+        switch (usersChoice.toUpperCase()) {
             case "A":
                 GameBoard gameBoard = new GameBoard();
+                System.out.println("Welcome to tic-tac-toe!");
                 gameBoard.StartGame();
                 break;
             default:
-
+                System.out.println("Users choice is not mapped to a service");
                 break;
         }
     }
