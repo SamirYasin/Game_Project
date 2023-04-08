@@ -1,5 +1,6 @@
 package tic_tac_toe;
 
+import java.util.Objects;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -28,12 +29,12 @@ public class GameBoard {
         while (true) {
             printBoard();
             System.out.println("Hey user, pick a number between 1-9");
-            String user = input.nextLine();
-            while (!checkIfValidMove(user, board)) {
+            String usersMove = input.nextLine();
+            while (!checkIfValidMove(usersMove, board)) {
                 System.out.println("Please enter a valid number");
-                user = input.nextLine();
+                usersMove = input.nextLine();
             }
-            updateBoardUser(user);
+            updateBoard(usersMove, "user");
             System.out.println("\u001B[33mYour Move\u001B[0m");
             if (checkIfSomeoneWon()) {
                 printBoard();
@@ -46,7 +47,7 @@ public class GameBoard {
             while (!checkIfValidMove(String.valueOf(computerMove), board)) {
                 computerMove = random.nextInt(9) + 1;
             }
-            updateBoardComputer(String.valueOf(computerMove));
+            updateBoard(String.valueOf(computerMove), "computer");
             if (checkIfSomeoneWon()) {
                 System.out.println();
                 printBoard();
@@ -62,12 +63,18 @@ public class GameBoard {
         return board[Integer.parseInt(user) - 1].equals("_ ");
     }
 
-    public void updateBoardUser(String move) {
-        board[Integer.parseInt(move) - 1] = "X ";
-    }
+    public void updateBoard(String move, String whoseMove) {
 
-    public void updateBoardComputer(String move) {
-        board[Integer.parseInt(move) - 1] = "O ";
+        String whichPlayer = whoseMove.toLowerCase();
+
+        if (!Objects.equals(whichPlayer, "computer") &&
+                !Objects.equals(whichPlayer, "user")) {
+            //invalid parameter, update nothing
+            board[Integer.parseInt(move) - 1] = "_ ";
+        } else {
+            String letterToAdd = whichPlayer.equals("user") ? "X " : "O ";
+            board[Integer.parseInt(move) - 1] = letterToAdd;
+        }
     }
 
     public Boolean checkIfSomeoneWon() {
