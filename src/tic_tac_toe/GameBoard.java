@@ -26,7 +26,9 @@ public class GameBoard {
     public void playingGame() {
         Scanner input = new Scanner(System.in);
         Random random = new Random();
+        int count = 0;
         while (true) {
+            count++;
             printBoard();
             System.out.println("Hey user, pick a number between 1-9");
             String usersMove = input.nextLine();
@@ -39,6 +41,12 @@ public class GameBoard {
             if (checkIfSomeoneWon()) {
                 printBoard();
                 System.out.println("\u001B[32mYOU WIN!\u001B[0m");
+                break;
+            }
+            else if(count == 5){
+                System.out.println();
+                printBoard();
+                System.out.println("\u001B[34m" + "It's a CATS game" + "\u001B[0m");
                 break;
             }
             printBoard();
