@@ -15,19 +15,21 @@ public class MainInterface {
         System.out.println("Choose E for: Movie API");
 
         String usersChoice = scanner.next();
+        userOptions(usersChoice);
     }
 
     private void userOptions(String usersChoice) {
 
-        String choice = usersChoice.toLowerCase();
+        String choice = usersChoice.toUpperCase();
 
         switch (choice) {
             case "A":
-                System.out.println("Test");
                 GameBoard gameBoard = new GameBoard();
                 gameBoard.StartGame();
                 break;
+            default:
 
+                break;
         }
     }
 }
