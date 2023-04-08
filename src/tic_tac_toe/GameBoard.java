@@ -5,7 +5,18 @@ public class GameBoard {
         drawBoard();
     }
 
-    public static void drawBoard(){
-        
+    public GameBoard() {
+        int[][] board = new int[3][3];
     }
+    public static void drawBoard(){
+        for (int i = 0; i < 3; i++) {
+            System.out.println("\n");
+            for (int j = 0; j < 3; j++) {
+                System.out.println(" x ");
+            }
+
+        }
+        }
+
+
 }

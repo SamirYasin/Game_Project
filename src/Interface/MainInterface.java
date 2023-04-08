@@ -22,7 +22,7 @@ public class MainInterface {
         String choice = usersChoice.toLowerCase();
 
         switch (choice) {
-            case "A":
+            case "a":
                 System.out.println("Test");
                 GameBoard gameBoard = new GameBoard();
                 gameBoard.StartGame();
