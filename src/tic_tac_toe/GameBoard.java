@@ -1,13 +1,14 @@
 package tic_tac_toe;
 
+import java.util.Random;
+import java.util.Scanner;
+
 public class GameBoard {
 
     public void StartGame(){
-        printBoard();
         playingGame();
     }
     private String[] board;
-    private String[] refBoard;
 
     public GameBoard() {
         board = new String[]{"_ ", "_ ", "_ ", "_ ", "_ ", "_ ","_ ", "_ ", "_ "};
@@ -22,6 +23,63 @@ public class GameBoard {
 
 
     public void playingGame(){
+    Scanner input = new Scanner(System.in);
+    Random random = new Random();
+        while(true){
+            printBoard();
+            System.out.println("Hey user, pick a number between 1-9");
+            String user = input.nextLine();
+            while(!checkIfValidMove(user, board)) {
+                System.out.println("Please enter a valid number");
+                user = input.nextLine();
+            }
+            updateBoardUser(user);
+            System.out.println("\u001B[33mYour Move\u001B[0m");
+            if(checkIfSomeoneWon()){
+                printBoard();
+                System.out.println("\u001B[32mYOU WIN!\u001B[0m");
+                break;
+            }
+            printBoard();
+            int computerMove = random.nextInt(9) + 1;
 
+            while(!checkIfValidMove(String.valueOf(computerMove), board)) {
+                computerMove = random.nextInt(9) + 1;
+            }
+            updateBoardComputer(String.valueOf(computerMove));
+            if(checkIfSomeoneWon()){
+                System.out.println();
+                printBoard();
+                System.out.println("\u001B[31mYOU LOSE\u001B[0m");
+                break;
+            }
+            System.out.println("\u001B[33mComputer Move\u001B[0m");
+            }
+            }
+
+
+    public Boolean checkIfValidMove(String user, String[] board){
+        if(Integer.parseInt(user) > 9 | Integer.parseInt(user) < 1) return false;
+        return board[Integer.parseInt(user) - 1].equals("_ ");
     }
-}
+
+    public void updateBoardUser(String move){
+    board[Integer.parseInt(move) - 1] = "X ";
+    }
+    public void updateBoardComputer(String move){
+        board[Integer.parseInt(move) - 1] = "O ";
+    }
+
+    public Boolean checkIfSomeoneWon(){
+        if(board[0].equals(board[1]) & board[1].equals(board[2]) & !board[0].equals("_ ")) return true;
+        if(board[3].equals(board[4]) & board[4].equals(board[5]) & !board[3].equals("_ ")) return true;
+        if(board[6].equals(board[7]) & board[7].equals(board[8]) & !board[7].equals("_ ")) return true;
+        if(board[0].equals(board[3]) & board[3].equals(board[6]) & !board[0].equals("_ ")) return true;
+        if(board[1].equals(board[4]) & board[4].equals(board[7]) & !board[1].equals("_ ")) return true;
+        if(board[2].equals(board[5]) & board[5].equals(board[8]) & !board[2].equals("_ ")) return true;
+        if(board[0].equals(board[4]) & board[4].equals(board[8]) & !board[0].equals("_ ")) return true;
+        if(board[2].equals(board[4]) & board[4].equals(board[6]) & !board[2].equals("_ ")) return true;
+        return false;
+    }
+    }
+
