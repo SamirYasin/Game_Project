@@ -26,12 +26,17 @@ public class GameBoard {
     public void playingGame() {
         Scanner input = new Scanner(System.in);
         Random random = new Random();
+        int count = 0;
         while (true) {
+            count++;
             printBoard();
             System.out.println("Hey user, pick a number between 1-9");
             String usersMove = input.nextLine();
-            while (!checkIfValidMove(usersMove, board)) {
-                System.out.println("Please enter a valid number");
+            while (!checkIfValidMove(usersMove, board) | !checkIfMoveTaken(usersMove, board)) {
+                if (usersMove.isEmpty()) System.out.println("You did not select a move, please enter a number");
+                else if(!checkIfNumber(usersMove)) System.out.println("Only numbers can be accepted as valid moves");
+                else if(!checkIfValidMove(usersMove, board)) System.out.println("Please enter a valid number between 1-9");
+                else if(!checkIfMoveTaken(usersMove, board)) System.out.println("That move is taken, please enter another number");
                 usersMove = input.nextLine();
             }
             updateBoard(usersMove, "user");
@@ -41,10 +46,16 @@ public class GameBoard {
                 System.out.println("\u001B[32mYOU WIN!\u001B[0m");
                 break;
             }
+            else if(count == 5){
+                System.out.println();
+                printBoard();
+                System.out.println("\u001B[34m" + "It's a CATS game" + "\u001B[0m");
+                break;
+            }
             printBoard();
             int computerMove = random.nextInt(9) + 1;
 
-            while (!checkIfValidMove(String.valueOf(computerMove), board)) {
+            while (!checkIfMoveTaken(String.valueOf(computerMove), board)) {
                 computerMove = random.nextInt(9) + 1;
             }
             updateBoard(String.valueOf(computerMove), "computer");
@@ -59,8 +70,20 @@ public class GameBoard {
     }
 
     public Boolean checkIfValidMove(String user, String[] board) {
-        if (Integer.parseInt(user) > 9 | Integer.parseInt(user) < 1) return false;
-        return board[Integer.parseInt(user) - 1].equals("_ ");
+        if (user.isEmpty()) return false;
+        else if (!checkIfNumber(user)) return false;
+        else return !(Integer.parseInt(user) > 9 | Integer.parseInt(user) < 1);
+    }
+
+    public Boolean checkIfMoveTaken(String user, String[] board){
+        if (user.isEmpty()) return false;
+        else if (!checkIfNumber(user)) return false;
+        else if (Integer.parseInt(user) > 9 | Integer.parseInt(user) < 1) return false;
+        else return board[Integer.parseInt(user) - 1].equals("_ ");
+    }
+
+    public Boolean checkIfNumber(String user){
+        return Character.isDigit(user.charAt(0));
     }
 
     public void updateBoard(String move, String whoseMove) {
