@@ -78,6 +78,7 @@ public class GameBoard {
     public Boolean checkIfMoveTaken(String user, String[] board){
         if (user.isEmpty()) return false;
         else if (!checkIfNumber(user)) return false;
+        else if (Integer.parseInt(user) > 9 | Integer.parseInt(user) < 1) return false;
         else return board[Integer.parseInt(user) - 1].equals("_ ");
     }
 
