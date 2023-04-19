@@ -1,5 +1,7 @@
 package MemoryGame;
 
+import Helper.Helpers;
+
 import java.util.*;
 
 public class MemoryGame {
