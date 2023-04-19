@@ -1,24 +1,129 @@
 package MemoryGame;
 
-public class MemoryGame {
-    public void startGame() {
-        /*
-            Summary of the game:
-             This going to be a game that tests the users' memory. The game will start at three numbers that will
-            randomly be flashed one at a time to the user. After the numbers are show, the user will have to pass those three numbers in the
-            order the number was shown. If they get it correct, they will go up a level and be shown another set of random numbers with an
-            additional number added at the end (four numbers in this case). If they get it incorrect, they will drop a level and be shown
-            a new random set of numbers just one less than they were shown before. If the user fails three times (doesn't have to be in a row),
-            they will lose the game.
+import java.util.*;
 
-            Technical requirements:
-            - Every game starts at level 1 (level one shows three numbers)
-            - If a user fails at level 1 one time, they lose the game (level one shows 3 numbers if they can't remember three numbers their memory is shit lmao)
-            - Each level flashes a random sequence of numbers to the user
-            - Everytime the user passes a round, they go up a level and get an extra number added to the sequence of new numbers they will be shown
-            - If the user fail a round, they drop a level and get one number less shown to them in the new random sequence of numbers
-            - If a user fails three rounds (doesn't have to be in a row) they lose the game
-            - Once a user loses the game show them their highest round that they've completed (so we have to keep track of the highest level a user has gotten to)
-         */
+public class MemoryGame {
+
+    private static int level = 1;
+    private static int highScore = 1;
+    private static int incorrectTries = 0;
+    private static final List<Character> generatedArray = new ArrayList<>();
+    private static final List<Character> usersArray = new ArrayList<>();
+
+    public void startGame() {
+        gameIntro();
+        gameCycle(generatedArray, usersArray);
+
+    }
+
+    private void gameIntro() {
+        showUsersLevel();
+        countDown();
+    }
+
+    private void showUsersLevel() {
+        String usersLevel = String.format("Level: " + level);
+        Helpers.printAndClearAfterDelay(usersLevel, 1700);
+    }
+
+    private void countDown() {
+
+        int count = 3;
+
+        for (int i = 0; i < 3; i++) {
+            String countDownNum = String.format("Game starts in %s ", count);
+            Helpers.printAndClearAfterDelay(countDownNum, 900);
+            count--;
+        }
+    }
+
+    private void showGeneratedNumber(List<Character> _generatedArray) {
+        //show level right here
+        showUsersLevel();
+        populateGeneratedArray(_generatedArray, level);
+
+        for (char number : _generatedArray) {
+            Helpers.printAndClearAfterDelay(String.valueOf(number), 800);
+        }
+    }
+
+    //TODO REFACTOR THIS METHOD
+    private void populateGeneratedArray(List<Character> _generatedArray, int usersCurrentLevel) {
+
+        //based the generated array length off the players current level
+        int arrayLength = usersCurrentLevel + 2;
+
+        Random random = new Random();
+        StringBuilder generatedAnswer = new StringBuilder();
+
+        if (!_generatedArray.isEmpty()) _generatedArray.clear();
+
+        for (int i = 0; i < arrayLength; i++) {
+            generatedAnswer.append((Math.abs(random.nextInt() % 10)));
+        }
+
+        for (int i = 0; i < generatedAnswer.length(); i++) {
+            _generatedArray.add(generatedAnswer.charAt(i));
+        }
+    }
+
+    private void promptAndStoreUserAnswer(List<Character> _usersArray) {
+        System.out.println("Type the numbers you saw");
+
+        Scanner scanner = new Scanner(System.in);
+        String usersAnswer = scanner.nextLine();
+
+        if (!_usersArray.isEmpty()) _usersArray.clear();
+
+        for (int i = 0; i < usersAnswer.length(); i++) {
+            _usersArray.add(usersAnswer.charAt(i));
+        }
+    }
+
+    private boolean isAnswerCorrect(List<Character> _generatedArray, List<Character> _usersArray) {
+
+        if (_generatedArray.size() != _usersArray.size()) return false;
+
+        return Arrays.equals(_generatedArray.toArray(), _usersArray.toArray());
+    }
+
+    private void gameCycle(List<Character> _generatedArray, List<Character> _usersArray) {
+
+        showGeneratedNumber(_generatedArray);
+        promptAndStoreUserAnswer(_usersArray);
+        boolean isUsersAnswerCorrect = isAnswerCorrect(_generatedArray, _usersArray);
+        boolean isGameOver = isGameOver();
+
+        if (isUsersAnswerCorrect) {
+            increaseLevelAndHighScore();
+            gameCycle(generatedArray, usersArray);
+        } else {
+            incorrectTries++;
+            level--;
+
+            if (isGameOver) {
+                gameOutro();
+            } else {
+                gameCycle(generatedArray, usersArray);
+            }
+        }
+    }
+
+    private void increaseLevelAndHighScore() {
+        if (level == highScore) {
+            level++;
+            highScore++;
+        } else {
+            level++;
+        }
+    }
+
+    private boolean isGameOver() {
+        return level == 1 || incorrectTries == 3;
+    }
+
+    private void gameOutro() {
+        System.out.println("Game over");
+        System.out.println("High passed level: " + (highScore - 1));
     }
 }
