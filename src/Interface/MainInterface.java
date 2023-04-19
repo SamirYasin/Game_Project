@@ -10,12 +10,12 @@ public class MainInterface {
 
     private static final String[] availableServices = {"A", "B"};
 
-    public void run() {
+    public static void run() {
         System.out.println("Welcome");
         takeUserToGame(promptUserForService());
     }
 
-    private void takeUserToGame(String usersChoice) {
+    private static void takeUserToGame(String usersChoice) {
         switch (usersChoice.toUpperCase()) {
             case "A":
                 GameBoard gameBoard = new GameBoard();
@@ -33,14 +33,14 @@ public class MainInterface {
         }
     }
 
-    private String promptUserForService() {
+    private static String promptUserForService() {
         Scanner scanner = new Scanner(System.in);
         boolean breakOutLoop = false;
         String usersChoice;
 
         do {
             System.out.println("Choose A for: Tic tac toe");
-            System.out.println("Choose B for: Number memory game (Service currently not available)");
+            System.out.println("Choose B for: Number memory game");
             System.out.println("Choose C for: HandMan (Service currently not available)");
             System.out.println("Choose D for: Bank (Service currently not available)");
             System.out.println("Choose E for: Movie API (Service currently not available)");
@@ -66,14 +66,14 @@ public class MainInterface {
         return usersChoice;
     }
 
-    private boolean isServiceAvailable(String usersChoice) {
+    private static boolean isServiceAvailable(String usersChoice) {
         for (String service : availableServices) {
             if (Objects.equals(usersChoice.toUpperCase(), service)) return true;
         }
         return false;
     }
 
-    private boolean isUsersChoiceALetter(String usersChoice) {
+    private static boolean isUsersChoiceALetter(String usersChoice) {
         if (usersChoice.length() != 1) return false;
         return Character.isLetter(usersChoice.charAt(0));
     }
