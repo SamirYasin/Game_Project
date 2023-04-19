@@ -13,7 +13,6 @@ public class MemoryGame {
     public void startGame() {
         gameIntro();
         gameCycle(generatedArray, usersArray);
-
     }
 
     private void gameIntro() {
@@ -125,5 +124,52 @@ public class MemoryGame {
     private void gameOutro() {
         System.out.println("Game over");
         System.out.println("High passed level: " + (highScore - 1));
+        System.out.println();
+
+        boolean doesUserWantToRetry = promptUserToRetry();
+
+        if (doesUserWantToRetry) {
+            resetGameStats();
+            startGame();
+        } else {
+            System.out.println("Have a good one!");
+        }
+    }
+
+    private boolean promptUserToRetry() {
+
+        Scanner scanner = new Scanner(System.in);
+        boolean breakOutLoop = false;
+        boolean wantToRetry = false;
+        String usersAnswer;
+
+        System.out.println("Want to retry?: Y/N?");
+        System.out.println();
+
+        do {
+
+            usersAnswer = scanner.nextLine().toLowerCase();
+
+            if (!usersAnswer.equals("y") && !usersAnswer.equals("n")) {
+                System.out.println("Huh?...Y or N please");
+                continue;
+            }
+
+            if (usersAnswer.equals("y")) {
+
+                wantToRetry = true;
+            }
+
+            breakOutLoop = true;
+
+        } while (!breakOutLoop);
+
+        return wantToRetry;
+    }
+
+    private void resetGameStats() {
+        level = 1;
+        highScore = 1;
+        incorrectTries = 0;
     }
 }
