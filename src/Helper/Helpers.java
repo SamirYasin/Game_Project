@@ -1,4 +1,4 @@
-package MemoryGame;
+package Helper;
 
 import java.util.Arrays;
 
