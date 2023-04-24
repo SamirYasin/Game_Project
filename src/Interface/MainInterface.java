@@ -10,21 +10,24 @@ public class MainInterface {
 
     private static final String[] availableServices = {"A", "B"};
 
-    public static void run() {
+    public static void run() throws InterruptedException {
         System.out.println("Welcome");
         takeUserToGame(promptUserForService());
     }
 
-    private static void takeUserToGame(String usersChoice) {
+    private static void takeUserToGame(String usersChoice) throws InterruptedException {
         switch (usersChoice.toUpperCase()) {
             case "A":
                 GameBoard gameBoard = new GameBoard();
                 System.out.println("Welcome to tic-tac-toe!");
+                ServiceRequirements.showRequirements("tic-tac-toe");
                 gameBoard.StartGame();
                 break;
             case "B":
                 MemoryGame memoryGame = new MemoryGame();
                 System.out.println("Welcome to number memory game!");
+                ServiceRequirements.showRequirements("memory game");
+                Thread.sleep(3500);
                 memoryGame.startGame();
                 break;
             default:
