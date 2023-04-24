@@ -6,12 +6,22 @@ public class HangmanGame {
 
     private String[] board;
 
+    private static String word;
+
+    private static int lengthOfWord;
+
+    private static String[] lettersToGuess;
+
+    private static int incorrectGuesses = 0;
+
+
+
     public HangmanGame(){
         board = new String[]{"  ┌──┐",
-                             "  O  │",
-                             " /|\\ │",
-                             " / \\ │",
-                              "   ──┴──"};
+                             "     │",
+                             "     │",
+                             "     │",
+                             "   ──┴──"};
     }
 
     public void printBeginningBoard(){
@@ -32,7 +42,19 @@ public class HangmanGame {
         }
     }
 
+    public void printLetters(){
+        for (String toGuess : lettersToGuess) {
+            System.out.print(toGuess);
+        }
+    }
+
     public void playGame(){
+        word = "hello";
+        lengthOfWord = word.length();
+        lettersToGuess = new String[lengthOfWord];
+        for (int i = 0; i < lengthOfWord; i++) {
+            lettersToGuess[i] = " - ";
+        }
         Scanner input = new Scanner(System.in);
     }
 }
