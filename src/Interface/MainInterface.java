@@ -1,5 +1,6 @@
 package Interface;
 
+import Hangman.HangmanGame;
 import MemoryGame.MemoryGame;
 import tic_tac_toe.GameBoard;
 
@@ -8,7 +9,7 @@ import java.util.Scanner;
 
 public class MainInterface {
 
-    private static final String[] availableServices = {"A", "B"};
+    private static final String[] availableServices = {"A", "B", "C"};
 
     public static void run() {
         System.out.println("Welcome");
@@ -27,6 +28,12 @@ public class MainInterface {
                 System.out.println("Welcome to number memory game!");
                 memoryGame.startGame();
                 break;
+            case "C":
+                HangmanGame hangmanGame = new HangmanGame();
+                System.out.println("Welcome to Hang Man Game");
+                hangmanGame.startGame();
+                break;
+
             default:
                 System.out.println("Users choice is not mapped to a service");
                 break;
@@ -41,7 +48,7 @@ public class MainInterface {
         do {
             System.out.println("Choose A for: Tic tac toe");
             System.out.println("Choose B for: Number memory game");
-            System.out.println("Choose C for: HandMan (Service currently not available)");
+            System.out.println("Choose C for: HangMan (Service currently not available)");
             System.out.println("Choose D for: Bank (Service currently not available)");
             System.out.println("Choose E for: Movie API (Service currently not available)");
 
