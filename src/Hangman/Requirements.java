@@ -28,5 +28,11 @@ Win/Lose Conditions
         System.out.println("  O");
         System.out.println(" /|\\");
         System.out.println(" / \\");
+
+        System.out.println("  ┌──┐");
+        System.out.println("  O  │      Start game? (y/n)");
+        System.out.println(" /|\\ │");
+        System.out.println(" / \\ │");
+        System.out.println("   ──┴──");
     }
 }
