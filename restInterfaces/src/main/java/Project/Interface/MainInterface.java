@@ -1,8 +1,8 @@
-package Interface;
+package Project.Interface;
 
-import Hangman.HangmanGame;
-import MemoryGame.MemoryGame;
-import tic_tac_toe.GameBoard;
+import Project.Hangman.HangmanGame;
+import Project.MemoryGame.MemoryGame;
+import Project.tic_tac_toe.GameBoard;
 
 import java.util.Objects;
 import java.util.Scanner;

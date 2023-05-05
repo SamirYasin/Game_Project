@@ -1,4 +1,4 @@
-package MemoryGame;
+package Project.MemoryGame;
 
 public class Requirements {
      /*

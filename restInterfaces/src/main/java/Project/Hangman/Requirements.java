@@ -1,4 +1,4 @@
-package Hangman;
+package Project.Hangman;
 
 public class Requirements {
 

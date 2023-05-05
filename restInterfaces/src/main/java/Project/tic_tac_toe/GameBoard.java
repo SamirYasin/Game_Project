@@ -1,4 +1,4 @@
-package tic_tac_toe;
+package Project.tic_tac_toe;
 
 import java.util.Objects;
 import java.util.Random;
